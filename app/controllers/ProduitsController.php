@@ -11,40 +11,59 @@ class ProduitsController {
 
   public  function index(){
 
+
+
+
         echo "heelooo";
     }
    
  
       public function read(){
 
-
-        $produit = new produit();
-
-   // Blog post query
-   $result = $produit->read();
-    // Turn to JSON & output
-    echo json_encode($result);
-    
-    
-      }
-      public function read_single($id){
+        if($_SERVER["REQUEST_METHOD"] == "GET"){ 
             $produit = new produit();
 
-            //    get id
-            // $id = isset($_GET['id']) ? $_GET['id'] : die("please enter id");
+            // Blog post query
+            $result = $produit->read();
+            // Turn to JSON & output
+            echo json_encode($result);
 
-            // get product
+        }  else  echo json_encode(
+          array('message' => 'change method to GET')
+                );
 
-            $product =$produit->read_single($id);
+       
+    
+      }
 
 
-            if($product){
-            print_r( json_encode($product)) ;
+      
+      public function read_single($id){
+           
+        if($_SERVER["REQUEST_METHOD"] == "GET"){ 
+              $produit = new produit();
 
-            } else {
+              //    get id
+              // $id = isset($_GET['id']) ? $_GET['id'] : die("please enter id");
 
-            print_r( json_encode(array('message' => 'No Product Found'))) ;
-            }
+              // get product
+
+              $product =$produit->read_single($id);
+
+
+              if($product){
+              print_r( json_encode($product)) ;
+
+              } else {
+
+              print_r( json_encode(array('message' => 'No Product Found'))) ;
+              }
+
+         } else   echo json_encode(
+          array('message' => 'change method to GET')
+                );
+
+       
 
 
 
